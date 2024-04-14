@@ -1,8 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
-const { InjectManifest } = require('workbox-webpack-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { InjectManifest, GenerateSW } = require('workbox-webpack-plugin');
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
 // TODO: Add CSS loaders and babel to webpack.
@@ -33,23 +32,16 @@ module.exports = () => {
       // Creates a manifest.json file.
       new WebpackPwaManifest({
         name: 'Jate',
+        short_name: 'Jate',
         description: 'Just another text editor.',
         background_color: '#225ca3',
         theme_color: '#225ca3',
         start_url: './',
         publicPath: './',
-        screenshots: [    
-          {
-            src: "src/images/screen1.png",
-            sizes: "640x320",
-            type: "image/png",
-            form_factor: "wide",
-            label: "Application"
-           }
-        ],
+        display: 'standalone',
         icons: [
           {
-            src: path.resolve('src/images/logo.png'),
+            src: path.resolve(__dirname,'src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons'),
           },

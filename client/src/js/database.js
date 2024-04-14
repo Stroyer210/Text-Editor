@@ -25,8 +25,11 @@ export const putDb = async (content) => {
   // Open up the desired object store.
   const store = tx.objectStore('jate');
 
-  // Use the .add() method on the store and pass in the content.
-  const request = store.put(content);
+   // Remove 'id' property from content if it exists to prevent conflict
+   const { id, ...contentWithoutId } = content;
+
+  // Use the .put() method on the store and pass in the contentWithoutId.
+  const request = store.put(contentWithoutId); // Use contentWithoutId instead of content
 
   // Get confirmation of the request.
   const result = await request;
